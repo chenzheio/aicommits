@@ -20,10 +20,10 @@
 		"build": "pkgroll --minify",
 		"lint": "eslint --cache .",
 		"type-check": "tsc",
-		"prepack": "pnpm build"
+		"prepack": "yarn build"
 	},
 	"simple-git-hooks": {
-		"pre-commit": "pnpm lint-staged"
+		"pre-commit": "yarn lint-staged"
 	},
 	"lint-staged": {
 		"*.ts": "eslint --cache"

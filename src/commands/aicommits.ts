@@ -30,9 +30,8 @@ export default async (
 		throw new KnownError('No staged changes found. Make sure to stage your changes with `git add`.');
 	}
 
-	detectingFiles.stop(`${getDetectedMessage(staged.files)}:\n${
-		staged.files.map(file => `     ${file}`).join('\n')
-	}`);
+	detectingFiles.stop(`${getDetectedMessage(staged.files)}:\n${staged.files.map(file => `     ${file}`).join('\n')
+		}`);
 
 	const config = await getConfig({
 		OPENAI_KEY: process.env.OPENAI_KEY ?? process.env.OPENAI_API_KEY,
@@ -61,7 +60,10 @@ export default async (
 			return;
 		}
 	} else {
-		const selected = await select({
+		const selected = await select<{
+			label: string;
+			value: string;
+		}[], string>({
 			message: `Pick a commit message to use: ${dim('(Ctrl+c to exit)')}`,
 			options: messages.map(value => ({ label: value, value })),
 		});
